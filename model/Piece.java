@@ -17,7 +17,7 @@ public  class Piece {
         return  cells;
      }
 
-     public  Color color(){                     //กำหนดสีของบล็อก
+     public  Color getCorlor(){                     //กำหนดสีของบล็อก
         return  color;
      }
 
