@@ -2,14 +2,21 @@ public class ScoreEntry  {
     private String name;
     private int score;
 
-    public String getName(){
+      public ScoreEntry(String name, int score) {
+        this.name = (name == null || name.isBlank()) ? "Player" : name.trim();
+        this.score = score;
+    }
+ 
+    public String getName() {
         return name;
-        
     }
-
-    public int getScore(){
+ 
+    public int getScore() {
         return score;
-        
     }
+ 
+    @Override
+    public String toString() {
+        return name + " - " + score;
 
-}
+}}
