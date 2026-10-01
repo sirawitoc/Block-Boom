@@ -14,10 +14,10 @@ public  class Board {
      public boolean canPlace(Piece piece,int row,int col){  //เช็คว่าสามารถว่างบล็อกได้ไหม
      int[][] cells =piece.getCells();
 
-     for(int r=0;r<piece.getHeight();r++){   //เช็กทุกช่อง
+     for(int r=0;r<piece.getHeight();r++){   //เช็กทุกช่องโดยการวนloop
           for(int c=0;c<piece.getWidth();c++){
-               if (cells[r][c]==0) {
-                    continue;
+               if (cells[r][c]==0) {  //ถ้าช่องทีตรวจ=0
+                    continue;          //ให้ต่อไป
                }
 
                int targetrow =r+row;   // นำช่องของบล็อกบวกกับช่องที่จะว่าง
@@ -40,7 +40,7 @@ public  class Board {
 
      public void place (Piece piece ,int row ,int col){   //ว่างบล็อก
           int [][]cells=piece.getCells();
-          Color color = piece.getCorlor();
+          Color color = piece.getColor();
 
      for(int r=0;r<piece.getHeight();r++){
           for(int c=0;c<piece.getWidth();c++){
@@ -83,14 +83,14 @@ public  class Board {
      }
 
      public boolean hasNoValidMove(Piece piece){  //เช็กว่าบล็อกที่เหลือสามารถว่างได้ไหมถ้าไม่ได้=ture
-     for(int row=0;row<SIZE;row++){
+     for(int row=0;row<SIZE;row++){              //วนloopทุกช่อง
           for(int col=0;col<SIZE;col++){
                if(canPlace(piece, row, col)){
                     return  false;                //ถ้ายังว่างได้=false
                }
           }
      }
-     return  true;
+     return  true;                               //ถ้าว่างไม่ได้ให้return ture
      }
 
      public  void  reset(){
@@ -98,20 +98,20 @@ public  class Board {
           
      }
      private boolean isRowFull(int row){  //เช็กว่าบล็อกในเเถวเต็มหรือยัง**ยังไม่ลบ**
-          for(int c=0;c<SIZE;c++){
-               if (grid[row][c]==null) {
+          for(int c=0;c<SIZE;c++){        //วนloop เช็กทุกช่อง
+               if (grid[row][c]==null) {   //วนเเล้วไม่เจอค่า ให้return false
                     return  false;
                }
           }
-          return true;
+          return true;                     //เเต่ถ้าเจอให้return ture เเปรว่าช่องนั้นเต็มเเล้ว
      }
      private  boolean isColumnFull(int col){   //เช็กว่าบล็อกในคอลัมน์เต็มหรือยัง**ยังไม่ลบ**
-          for(int r=0;r<SIZE;r++){
+          for(int r=0;r<SIZE;r++){             //วนloop เช็กทุกช่อง
                if (grid[r][col]==null) {
-                    return false;
+                    return false;              //วนเเล้วไม่เจอค่า ให้return false
                }
           }
-          return  true ;
+          return  true ;                       //เเต่ถ้าเจอให้return ture เเปรว่าช่องนั้นเต็มเเล้ว
      }
      private  void  clearRow(int row){  //ลบถ้าเเถวเต็ม
 
