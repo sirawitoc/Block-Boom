@@ -47,7 +47,7 @@ public  class PieceGenerator {
             refillBag();
         }
         int ShapeIndex=bag.remove(bag.size()-1);            //หยิบตัวท้ายสุดออกจากถุง(เอาออกจริงๆ)
-        int Shape[][]=SHAPES[ShapeIndex];                   //เอาเลขที่ได้มาไปเปิดมนshapesว่าได้รูปทรงอะไร
+        int Shape[][]=SHAPES[ShapeIndex];                   //เอาเลขที่ได้มาไปเปิดshapesว่าได้รูปทรงอะไร
         Color color=COLORS[random.nextInt(COLORS.length)];    //สุ่มสีให้กับบล็อกนั้น
        return new  Piece(Shape, color);                       //ส่งรูปทรงของบล็อกเเละสีออกไป
 
