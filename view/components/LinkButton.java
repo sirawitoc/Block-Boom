@@ -2,6 +2,10 @@ package view.components;
 import  javax.swing.*;
 import  java.awt.*;
 
+/**
+ * คลาสสำหรับสร้าง ปุ่มสไตล์ลิงก์
+ * โดยเอาปุ่มกดธรรมดามาตกแต่งให้มีลักษณะเหมือนลิงก์
+ */
 public class LinkButton extends JButton {
 
     // ฟังก์ชันสร้างปุ่ม โดยรับข้อความ (text) ที่ต้องการให้แสดงบนปุ่ม
