@@ -15,7 +15,6 @@ public class ScoreEntry  {
         return score;
     }
  
-    @Override
     public String toString() {
         return name + " - " + score;
 
