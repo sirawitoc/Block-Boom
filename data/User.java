@@ -1,24 +1,24 @@
 public class User {
     private String username;
     private String email;
-    private String passwordHash;
+    private String passwordhash;
 
-    public User(String username, String email, String passwordHash) {
+    public User(String username, String email, String passwordhash) {
         this.username=username;
         this.email=email;
-        this.passwordHash=passwordHash;
+        this.passwordhash=passwordhash;
     }
 
     public String getUsername() {
-        return getUsername();
+        return username;
     }
 
     public String getEmail() {
-        return getEmail();
+        return email;
     }
 
     public String getPasswordHash() {
-        return getPasswordHash();
+        return passwordhash;
     }
 
 }
