@@ -1,9 +1,12 @@
-public class ScoreEntry  {
+
+package data;
+
+public class ScoreEntry  {//แม่แบบเก็บข้อมูลคะแนนของผู้เล่น 1 รายการ (ชื่อ + คะแนน)
     private String name;
     private int score;
 
       public ScoreEntry(String name, int score) {
-        this.name = (name == null || name.isBlank()) ? "Player" : name.trim();
+        this.name = name;
         this.score = score;
     }
  
