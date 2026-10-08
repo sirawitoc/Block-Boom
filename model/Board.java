@@ -124,7 +124,7 @@ public  class Board {
 
      private void  clearCol(int col){  //ลบถ้าคอลัมน์เต็ม
      for (int r=0;r<SIZE;r++){
-          grid[col][r]=null;
+          grid[r][col]=null;
                
           
      }
