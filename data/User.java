@@ -3,25 +3,20 @@ package data;
 
 public class User { //ที่ใส่ข้อมูลผู้ใช้
     private String username;
-    private String email;
-    private String passwordhash;
+    private String password;
 
-    public User(String username, String email, String passwordhash) {
+    public User(String username, String password) {
         this.username=username;
-        this.email=email;
-        this.passwordhash=passwordhash;
+        this.password=password;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public String getPasswordHash() {
-        return passwordhash;
+    public String getPassword() {
+        return password;
     }
 
 }
