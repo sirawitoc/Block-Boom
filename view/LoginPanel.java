@@ -44,81 +44,87 @@ public class LoginPanel extends GradientPanel{
         add(column, gc);
     }
 
-    /** สร้างช่องสี่เหลี่ยม ที่ใส่ฟอร์มทั้งหมด โดยมี หัวข้อ, ช่องกรอก, ข้อความ error, ปุ่ม และ footer */
+    /** สร้างการ์ดสี่เหลี่ยม ที่ใส่ฟอร์มทั้งหมด โดยมี หัวข้อ, ช่องกรอก, ข้อความ error, ปุ่ม และ footer */
     private  JPanel buildCard(){
-        RoundedPanel card = new RoundedPanel(new Color(255, 255, 255, 200), 18);  // ช่องสี่เหลี่ยม ให้มีสีขาวโปร่งๆ  มุมโค้ง 18
+        RoundedPanel card = new RoundedPanel(new Color(255, 255, 255, 200), 18);  // การ์ดสี่เหลี่ยม ให้มีสีขาวโปร่งๆ  มุมโค้ง 18
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16)); //  เว้นขอบด้านในรอบสี่เหลี่ยม 16 px
         card.setMaximumSize(new Dimension(338, Integer.MAX_VALUE)); // กว้างไม่เกิน 338 แต่สามารถขยายให้สูงได้
-        card.setAlignmentX(Component.CENTER_ALIGNMENT); //ทำให้ช่องสีเหลี่ยมอยู่กึ่งกลางคอลัมน์
+        card.setAlignmentX(Component.CENTER_ALIGNMENT); //ทำให้การ์ดสีเหลี่ยมอยู่กึ่งกลางคอลัมน์
         
 
         // หัวข้อ 
-        JLabel title = new JLabel("Login");
+        JLabel title = new JLabel("Login"); //ข้อความในช่องสีเหลี่ยม
         title.setFont(Theme.font(Font.BOLD, 25)); // ขนาด และ font
-        JLabel subtitle = new JLabel("Welcome back!");
+        JLabel subtitle = new JLabel("Welcome back!"); //ข้อความในช่องสีเหลี่ยม
         subtitle.setFont(Theme.font(Font.PLAIN, 18)); // ขนาด และ font 
-        subtitle.setForeground(Theme.TEXT_MUTED);
+        subtitle.setForeground(Theme.TEXT_MUTED); // ทำให้ตัว Welcome back เป็นสี MUTED
         
         // ข้อความ error
         errorLabel.setForeground(Theme.RED); // สีแดง
         errorLabel.setFont(Theme.font(Font.PLAIN, 12)); // ขนาด และ font
         
         // ปุ่ม Login
-        RoundedButton loginButton = new RoundedButton("Login", Theme.BLUE);
-        loginButton.setPreferredSize(new Dimension(200, 58));
+        RoundedButton loginButton = new RoundedButton("Login", Theme.BLUE); // ปุ่ม Login สีน้ำเงิน
+        loginButton.setPreferredSize(new Dimension(200, 58)); // ขนาด
         loginButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 58)); // // ตั้งความสูงไม่ให้ยึดเอง
-        loginButton.addActionListener(e -> doLogin());
-        passwordField.addActionListener(e -> doLogin());
+        loginButton.addActionListener(e -> doLogin()); // กดปุ่มแล้วเรียก doLogin() เพื่อตรวจสอบ
+        passwordField.addActionListener(e -> doLogin()); // กด Enter ในช่อง Password ก็ Login ได้เหมือนกัน
  
-        RoundedButton leaveButton = new RoundedButton("Leave", Theme.RED);
+        RoundedButton leaveButton = new RoundedButton("Leave", Theme.RED); 
         leaveButton.setPreferredSize(new Dimension(200, 58));
         leaveButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 58));
-        leaveButton.addActionListener(e -> System.exit(0));
- 
-        card.add(title);
-        card.add(subtitle);
-        card.add(Box.createVerticalStrut(12));
-        card.add(idField);
+        leaveButton.addActionListener(e -> System.exit(0));  // กดแล้วปิดโปรแกรมทันที
+  
+        card.add(title);    // ใส่หัวข้อ Login
+        card.add(subtitle);  // ใส่ข้อความ Welcome back!
+        card.add(Box.createVerticalStrut(12));  // เว้นช่องว่างแนวตั้ง 
+        card.add(idField);  // ใส่ช่องกรอก Username
         card.add(Box.createVerticalStrut(16));
-        card.add(passwordField);
+        card.add(passwordField);    // ใส่ช่องกรอก Password
         card.add(Box.createVerticalStrut(6));
-        card.add(errorLabel);
+        card.add(errorLabel);    // ใส่ข้อความ error (ตอนแรกเป็นช่องว่าง)
         card.add(Box.createVerticalStrut(6));
-        card.add(loginButton);
+        card.add(loginButton);  // ใส่ปุ่ม Login
         card.add(Box.createVerticalStrut(12));
-        card.add(leaveButton);
+        card.add(leaveButton);   // ใส่ปุ่ม Leave
         card.add(Box.createVerticalGlue());
-        card.add(buildFooter());
-        Layouts.alignLeft(card);
+        card.add(buildFooter());    //ใส่แถว footer ("Don't have an account? Sign up")
+
+        Layouts.alignLeft(card);    //ให้ทุกชิ้นในการ์ดชิดซ้ายเท่ากัน
         return card;
     }
+
+    // สร้างแถวด้านล่างของการ์ด
     private JPanel buildFooter() {
-        JPanel footer = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));
-        footer.setOpaque(false);
+        JPanel footer = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));    // เรียงแนวนอน อยู่กึ่งกลาง ห่างกัน 4 px
+        footer.setOpaque(false);    // ทำให้โปร่งใส เห็นสีการ์ดด้านหลัง
         footer.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
-        JLabel text = new JLabel("Don't have an account?");
+        JLabel text = new JLabel("Don't have an account?"); // ข้อความบอกว่ายังไม่มีบัญชี
         text.setFont(Theme.font(Font.PLAIN, 15));
         text.setForeground(Theme.FIELD_TEXT);
-        LinkButton signUp = new LinkButton("Sign up");
-        signUp.addActionListener(e -> frame.showSignUp());
-        footer.add(text);
-        footer.add(signUp);
+        LinkButton signUp = new LinkButton("Sign up");  // ปุ่มสไตล์ลิงก์ Sign up
+        signUp.addActionListener(e -> frame.showSignUp());  // กดแล้วสั่งหน้าต่างหลักให้ไปหน้า Sign up
+        footer.add(text);   // ใส่ข้อความในแถว
+        footer.add(signUp); // ใส่ลิงก์ Sign up ต่อท้ายข้อความ
         return footer;
     }
     
+    // ตรวจสอบการ Login 
     private void doLogin() {
-        User user = AuthService.login(idField.getText(), new String(passwordField.getPassword()));
-        if (user == null) {
-            errorLabel.setText("Invalid username or password.");
+        User user = AuthService.login(idField.getText(), new String(passwordField.getPassword()));  // ส่ง username กับ password ให้ AuthService ตรวจ (ผิดจะได้ null)
+        if (user == null) {  // ถ้าไม่พบผู้ใช้หรือรหัสผ่านผิด
+            errorLabel.setText("Invalid username or password.");    // แสดงข้อความ error
             return;
         }
-        frame.getSession().login(user);
-        frame.goHome();
+        frame.getSession().login(user);     // Login สำเร็00tบันทึกว่าใครล็อกอินอยู่ใน Session
+        frame.goHome();     // สั่งหน้าต่างหลักให้ไปหน้า Home
     }
+
+    // ล้างฟอร์ม
      public void reset() {
-        idField.setText("");
-        passwordField.setText("");
-        errorLabel.setText(" ");
+        idField.setText("");    // ล้างช่อง Username
+        passwordField.setText("");   // ล้างช่อง Password
+        errorLabel.setText(" ");    // ล้างข้อความ error
      }
 }
