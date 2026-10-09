@@ -1,50 +1,51 @@
 package view.components;
-import  javax.swing.*;
-import  java.awt.*;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
 
 /**
- * คลาสสำหรับสร้างองค์ประกอบภาพ "โลโก้ข้อความแบบมีเส้นขอบ"
- * ทำหน้าที่วาดตัวหนังสือชื่อเกม
+ * คลาสสำหรับแสดง "โลโก้เกม" จากไฟล์รูปภาพ PNG
  */
 public class LogoLabel extends JComponent {
-    // ฟังก์ชันสร้างโลโก
-    public  LogoLabel(){
+    
+    // กำหนดที่อยู่ของไฟล์รูปภาพโลโก้ โฟลเดอร์ img ไฟล์ชื่อ img.png
+    private static final String Logo_Game = "img/img.png";
+
+    // ตัวแปรเก็บรูปภาพโลโก้
+    private Image logo;
+
+    // ฟังก์ชันสร้างโลโก้
+    public LogoLabel() {
         // กำหนดขนาดพื้นที่สำหรับแสดงผลโลโก้
-        setPreferredSize(new Dimension(300,80));
+        setPreferredSize(new Dimension(300, 80));
+
+        try {
+            // โหลดรูปจากไฟล์ในเครื่องโดยตรง
+            logo = ImageIO.read(new File(Logo_Game));
+        } catch (IOException e) {
+            System.err.println("โหลดโลโก้ไม่สำเร็จ: " + Logo_Game);
+            System.err.println("กำลังหาจาก: " + new File(Logo_Game).getAbsolutePath());
+        }
     }
 
     // ฟังก์ชันที่ระบบจะเรียกใช้เพื่อ "วาดกราฟิก" ลงบนหน้าจอ
-    @Override 
-    protected  void paintComponent(Graphics g){
-     Graphics2D g2=(Graphics2D) g;
-     // เปิดโหมดลบรอยหยัก (Anti - aliasing)
-     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-     // กำหนดฟอนต์ตัวหนาและขนดฟอนต์
-     g2.setFont(Theme.font(Font.BOLD, 36));
-    // ดึงข้อมูลขนาดของฟอนต์ เพื่อนำมาช้คำนวณตำแหน่งกึ่งกลาง
-    FontMetrics fm=g2.getFontMetrics();
-    // ข้อความโลโก้ที่ต้องแสดงผล
-    String text="Block Boom";
-    // คำนวณพิกัด x (แนวนอน) เพื่อวางข้อความให้อยู่ตรงกลางพื้นที่
-    int x=(getWidth()-fm.stringWidth(text))/2;
-    // คำนวณพิกัด y (แนวตั้ง) เพื่อวางข้อความให้อยู่ตรงกลางพื้นที่
-    int y=(getHeight()+fm.getAscent())/2;
-    // เรียกฟังก์ชันวาดข้อความพร้อมใส่เส้นขอบ โดยใช้ขอบสีน้ำเงินเข้มและตัวอักษรสีเหลือง
-    drawOutlined(g2,text,x,y,Theme.NAVY,Theme.YELLOW);
-    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-    // ~ หมายถึง package-private ตาม diagram
-    void drawOutlined(Graphics2D g2,String text,int x,int y,Color outline,Color fill){
-        // กำหนดสีสำหรับทำเส้นขอบ
-        g2.setColor(outline);
-        // วาดข้อความเดิมซ้ำ 4 ครั้ง โดยขยับตำแหน่งไป ซ้าย,ขวา,บน,ล่าง อย่างละ 1 พิกเซล เพื่อจำลองการทำเส้นขอบ
-        g2.drawString(text, x - 1, y);
-        g2.drawString(text, x + 1, y);
-        g2.drawString(text, x, y - 1);
-        g2.drawString(text, x, y + 1);
-        // กำหนดสีหลักของตัวอักษร
-        g2.setColor(fill);
-        // วาดข้อความทับลงไปตรงกลาง
-        g2.drawString(text, x, y);
+        if (logo != null) {
+            Graphics2D g2 = (Graphics2D) g;
+            // เปิดโหมดลบรอยหยักเพื่อความคมชัด
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            
+            // คำนวณตำแหน่งกึ่งกลางตามขนาดรูป
+            int x = (getWidth() - logo.getWidth(null)) / 2;
+            int y = (getHeight() - logo.getHeight(null)) / 2;
+
+            // วาดรูปภาพตรงกลางพื้นที่
+            g2.drawImage(logo, x, y, this);
+        }
     }
 }
