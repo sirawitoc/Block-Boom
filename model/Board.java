@@ -13,7 +13,6 @@ public  class Board {
 
      public boolean canPlace(Piece piece,int row,int col){  //เช็คว่าสามารถว่างบล็อกได้ไหม
      int[][] cells =piece.getCells();
-
      for(int r=0;r<piece.getHeight();r++){   //เช็กทุกช่องโดยการวนloop
           for(int c=0;c<piece.getWidth();c++){
                if (cells[r][c]==0) {  //ถ้าช่องทีตรวจ=0
