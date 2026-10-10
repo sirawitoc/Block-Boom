@@ -2,6 +2,14 @@ package model;
 import  java.awt.Color;
 
 
+/**
+ * Board.java
+ * classนี้เกี่ยวกับกฎต่างๆของเกม เช่ยการเช็กว่าบล็อกนี้สามารถวางได้ไหม
+ * หรือการเช็กว่าเเถวนี้ว่างบล็อกเต็มหรือยังรวมไปถึงการเช็กว่าเกมจบหรือยัง
+
+ */
+
+
 public  class Board {
 
      public  static final int SIZE=8;

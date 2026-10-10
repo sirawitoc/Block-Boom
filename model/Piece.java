@@ -1,6 +1,13 @@
 package model;
 import  java.awt.Color;
 
+/**
+ * Piece.java
+ * classนี้เกี่ยวกับรูปทรงต่างๆของบล็อกว่าหน้าตา ความสูง ความกว้าง
+ * หรือสีของบล็อก
+ */
+
+
 public  class Piece {
 
      private  int [][] cells;

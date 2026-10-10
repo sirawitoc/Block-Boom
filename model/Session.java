@@ -1,6 +1,12 @@
 package model;
 import data.User;
 
+/**
+ * Session.java
+ * classนี้เกี่ยวกับการLogin ของผู้เล่นที่เล่นอยู่ในขณะนั้ัน
+ */
+
+
 public class Session {
     private User user;
     private String playerName;

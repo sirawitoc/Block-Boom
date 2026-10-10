@@ -3,11 +3,9 @@ import data.User;
 import data.UserManager;
 
 /**
- * AuthService.javav
- *
- * Rules for Sign up and Login (validation + password check). Persistence
- * is delegated to UserManager and hashing to PasswordHasher, so this
- * class contains only the decision-making.
+ * Board.java
+ * classนี้ทำการเช็กรหัสผ่านเเละชื่อผู้ใช้ว่าถูกต้องตามที่กำหนดไว้หรือเปล่า
+ * เช่น (รหัสผ่าน <4)จะไม่สามารถloginได้
  */
 public class AuthService {
     private AuthService() { }

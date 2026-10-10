@@ -1,9 +1,15 @@
 package model;
 
 import java.util.List;
+/**
+ * GameEngine.java
+ * classนี้ได้นำ Piece Borad PieceGeneretor นำมาช่วยในการกำหนดกฎต่างๆในเกม 
+ * เช่นการนับคะเเนน การวางบล็อก รวมไปถึงการรู้ว่าเกมจะจบยังไง
+ */
+
 
 public class GameEngine {
-    public static final int TRAY_SIZE = 3;
+    public static final int TRAY_SIZE = 3;   //กำหนดให้ถาดว่างบล็อกมี3อันไม่สามารถเปลี่ยนค่าได้
 
     private Board board;
     private PieceGenerator generator;
@@ -11,19 +17,19 @@ public class GameEngine {
     private int score;
     private boolean gameOver;
 
-    public GameEngine() {
-        board = new Board();
-        generator = new PieceGenerator();
-        tray = new Piece[TRAY_SIZE];
+    public GameEngine() {   
+        board = new Board();                 //เริ่มเป็นกระดานใหม่
+        generator = new PieceGenerator();      
+        tray = new Piece[TRAY_SIZE];         
         newGame();
     }
 
     // เริ่มเกมใหม่
     public void newGame() {
-        board.reset();
-        score = 0;
-        gameOver = false;
-        refillTray();
+        board.reset();                      //เริ่มเกมใหม่
+        score = 0;                          //กำหนดสกอร์ตอนเริ่มเป็น0
+        gameOver = false;                    //กำหนดให้เgameover false
+        refillTray();                          //เปลี่ยนถุงเก็บล็อกในการเล่น
     }
 
     public Board getBoard() {
@@ -66,7 +72,7 @@ public class GameEngine {
         score += piece.size() * 10;               // คะแนนจากการวาง
 
         int lines = board.clearFullLines();
-        score += lines * lines * 100;             // คะแนนจากการแตก (ยิ่งแตกพร้อมกันยิ่งได้เยอะ)
+        score += lines * lines * 100;             // คะแนนจากการแตกของบล็อก (ยิ่งแตกพร้อมกันยิ่งได้เยอะ)
 
         tray[slot] = null;                        // บล็อกชิ้นนี้ใช้ไปแล้ว
         if (trayEmpty()) {
@@ -85,13 +91,13 @@ public class GameEngine {
         }
     }
 
-    private boolean trayEmpty() {
-        for (Piece p : tray) {
-            if (p != null) {
+    private boolean trayEmpty() {        //เช็กว่าบล็อกใยถาดว่างไหม
+        for (Piece p : tray) {            
+            if (p != null) {              //ไม่ว่าง return false
                 return false;
             }
         }
-        return true;
+        return true;                       //ถาดว่างจริง return ture
     }
 
     // เกมจบเมื่อ "ทุกชิ้นที่เหลือในถาด" วางไม่ได้เลย
