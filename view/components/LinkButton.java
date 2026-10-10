@@ -21,7 +21,7 @@ public class LinkButton extends JButton {
      // กำหนดสีตัวหนังสือให้เป็นสีม่วง
      setForeground(Theme.PURPLE);
      // กำหนดรูปแบบและขนาดฟอนต์
-     setFont(Theme.font(Font.PLAIN, 13));
+     setFont(Theme.font(Font.PLAIN, 20));
      // เปลี่ยนรูปตัวชี้เมาส์ (Cursor) ให้เป็นรูป มือชี้ เมื่อเลื่อนเมาส์มาวางบนปุ่ม
      setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
