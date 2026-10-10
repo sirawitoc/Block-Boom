@@ -5,6 +5,13 @@ import  java.util.List;
 import  java.util.ArrayList;
 import  java.util.Collections;
 
+/**
+ * PieceGenerator.java
+ * classนี้เกี่ยวกับการสร้างรูปร่างจริงของตัวบล็อกร่วมไปถึงการสุ่มบล็อก
+ * เเละสร้างถุงเก็บบล็อกต่างๆเพื่อการนำไปสุ่ม
+ */
+
+
 public  class PieceGenerator {
 
 
