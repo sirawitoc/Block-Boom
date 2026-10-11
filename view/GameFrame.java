@@ -37,6 +37,8 @@ public class GameFrame extends JFrame {
         cards.add(loginPanel, LOGIN);
         cards.add(signUpPanel, SIGN_UP);
 
+        cards.add(leaderboardPanel,LEADERBOARD);
+
         add(cards);
         pack();
         setLocationRelativeTo(null);
@@ -57,7 +59,8 @@ public class GameFrame extends JFrame {
 
      }
      public void logout() {
-
+        session.logout();
+        showLogin();
      }
       public void goHome() {
 
@@ -66,6 +69,7 @@ public class GameFrame extends JFrame {
 
       }
       public void openLeaderboard() {
-
+         leaderboardPanel.refresh();
+        cardLayout.show(cards, LEADERBOARD);
       }
 }
