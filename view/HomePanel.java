@@ -49,9 +49,9 @@ public class HomePanel extends GradientPanel {
         column.add(errorLabel);
         column.add(Box.createVerticalStrut(10));
         column.add(startBtn);
-        column.add(Box.createVerticalStrut(14));
+        column.add(Box.createVerticalStrut(20));
         column.add(scoreBtn);
-        column.add(Box.createVerticalStrut(14));
+        column.add(Box.createVerticalStrut(20));
         column.add(logoutBtn);
         Layouts.alignLeft(column);
         add(column);
@@ -60,6 +60,7 @@ public class HomePanel extends GradientPanel {
 
     private RoundedButton menuButton(String text, Color color) {
         RoundedButton b = new RoundedButton(text, color);
+        b.setPreferredSize(new Dimension(200, 58));
         b.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
         b.setAlignmentX(Component.LEFT_ALIGNMENT);
         return b;
