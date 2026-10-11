@@ -36,7 +36,8 @@ public class GameFrame extends JFrame {
 
         cards.add(loginPanel, LOGIN);
         cards.add(signUpPanel, SIGN_UP);
-
+        cards.add(homePanel, HOME);
+        
         cards.add(leaderboardPanel,LEADERBOARD);
 
         add(cards);
@@ -63,7 +64,8 @@ public class GameFrame extends JFrame {
         showLogin();
      }
       public void goHome() {
-
+        homePanel.refresh();
+        cardLayout.show(cards, HOME);
       }
       public void startGame(String playerName) {
 
