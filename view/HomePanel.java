@@ -18,10 +18,10 @@ public class HomePanel extends GradientPanel {
         JPanel column = new JPanel();
         column.setOpaque(false);
         column.setLayout(new BoxLayout(column, BoxLayout.Y_AXIS));
-        column.setPreferredSize(new Dimension(300, 440));
+        column.setPreferredSize(new Dimension(338, 706));
 
         JLabel nameLabel = new JLabel("Name :");
-        nameLabel.setFont(Theme.font(Font.BOLD, 12));
+        nameLabel.setFont(Theme.font(Font.BOLD, 15));
         errorLabel.setForeground(Theme.RED);
         errorLabel.setFont(Theme.font(Font.PLAIN, 12));
 
@@ -61,7 +61,7 @@ public class HomePanel extends GradientPanel {
     private RoundedButton menuButton(String text, Color color) {
         RoundedButton b = new RoundedButton(text, color);
         b.setPreferredSize(new Dimension(200, 58));
-        b.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+        b.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         b.setAlignmentX(Component.LEFT_ALIGNMENT);
         return b;
     }
