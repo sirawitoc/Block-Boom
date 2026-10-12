@@ -16,6 +16,7 @@ public final class Theme {
     public static final Color RED = new Color(0xE53935);
     public static final Color BLUE = new Color(0x4A7FD6);
     public static final Color TEXT_DARK = new Color(0x1F2A44);
+    public static final Color FIELD_TEXT = new Color(0x6F86B8);
     public static final Color TEXT_MUTED = new Color(0x7B8BA8);
     public static final Color FIELD_BORDER = new Color(0xC9D6EE);
     public static final Color BOARD_FRAME = new Color(0x9DB2DD);
