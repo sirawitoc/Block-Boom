@@ -94,31 +94,34 @@ public LeaderboardPanel(GameFrame frame) {
         headerRenderer.setFont(Theme.font(Font.BOLD, 13)); // ตัวหนา ขนาด
         table.getTableHeader().setDefaultRenderer(headerRenderer); //ให้หัวข้อใน table ทำให้เหนือนกับ headerRenderer
         table.getTableHeader().setReorderingAllowed(false); // ห้ามลากสลับตำแหน่งคอลัมน์เล่น
-        table.getTableHeader().setPreferredSize(new Dimension(0, 30)); 
+        table.getTableHeader().setPreferredSize(new Dimension(0, 30));  // กำหนดความสูงของหัว
         table.getColumnModel().getColumn(0).setPreferredWidth(10);  // คอลัมน์แรก (No.) กว้าง 50
         table.getColumnModel().getColumn(1).setPreferredWidth(100); // คอลัมน์สอง (Name) กว้าง 170 เพราะชื่อยาวกว่าเพื่อน
         table.getColumnModel().getColumn(2).setPreferredWidth(80);  // คอลัมน์สาม (Score) กว้าง 80
 
+        //สร้างกล่องสำหรับบรรจุหัวตารางและข้อมูลคะแนน
         JPanel box = new JPanel(new BorderLayout());                
-        box.setBorder(BorderFactory.createLineBorder(Theme.PURPLE, 3)); 
-        box.add(table.getTableHeader(), BorderLayout.NORTH);        
-        box.add(table, BorderLayout.CENTER);
+        box.setBorder(BorderFactory.createLineBorder(Theme.PURPLE, 3)); // เพิ่มเส้นขอบ
+        box.add(table.getTableHeader(), BorderLayout.NORTH);       // วางหัวตารางไว้ด้านบน 
+        box.add(table, BorderLayout.CENTER);     // วางข้อมูลตารางไว้ตรงกลาง
 
+        // สร้างแผงตรงกลางของหน้าจอ
         JPanel middle = new JPanel(new BorderLayout());             
-        middle.setOpaque(false);    
-        middle.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));                                
-        middle.add(box, BorderLayout.NORTH);                       
-        add(middle, BorderLayout.CENTER);
+        middle.setOpaque(false);    // ทำให้พื้นหลังของแผงโปร่งใส
+        middle.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));        // เพิ่มระยะห่างด้านบน                          
+        middle.add(box, BorderLayout.NORTH);   // วางกล่องตารางไว้ด้านบน                    
+        add(middle, BorderLayout.CENTER);   // เพิ่มแผงตารางลงในพื้นที่ตรงกลาง
 }
  public void refresh() {
-    model.setRowCount(0);
-        List<ScoreEntry> entries = LeaderboardManager.load();
-        hasData = !entries.isEmpty();
-        int shown = Math.min(entries.size(), MAX_ROWS); 
-        for (int i = 0; i < shown; i++) {
-        ScoreEntry entry = entries.get(i);
-        model.addRow(new Object[]{String.valueOf(i + 1), entry.getName(), String.valueOf(entry.getScore())});
+    model.setRowCount(0);  // ลบข้อมูลเก่าออกจากตารางทั้งหมดก่อน
+        List<ScoreEntry> entries = LeaderboardManager.load();   // โหลดรายการคะแนนจาก LeaderboardManager
+        hasData = !entries.isEmpty();    // ตรวจสอบว่ามีข้อมูลคะแนนหรือไม่
+        int shown = Math.min(entries.size(), MAX_ROWS);     // คำนวณจำนวนรายการที่จะแสดง โดยแสดงไม่เกิน 10 อันดับ
+        for (int i = 0; i < shown; i++) {       // วนลูปนำข้อมูลคะแนนแต่ละรายการมาใส่ในตาราง
+        ScoreEntry entry = entries.get(i);  // ดึงข้อมูลคะแนนของผู้เล่นในลำดับปัจจุบัน
+        model.addRow(new Object[]{String.valueOf(i + 1), entry.getName(), String.valueOf(entry.getScore())}); // เพิ่มข้อมูลลงในตาราง
         }
+        // ถ้าไม่มีข้อมูลคะแนน ให้แสดงข้อความแจ้งเตือนในตาราง
         if (!hasData) {
             model.addRow(new Object[]{"-", "No information available", "-"});
         }
