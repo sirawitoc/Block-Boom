@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * LeaderboardPanel
+ * หน้าจอตารางอันดับคะแนน
+ * อันดับ 1-3 ได้สีทอง เงิน ทองแดง และมีปุ่ม Home ไว้กดกลับหน้าหลัก
  */
 public class LeaderboardPanel extends  GradientPanel{
     private static final Color GOLD = new Color(0xF2C94C);
@@ -19,89 +21,103 @@ public class LeaderboardPanel extends  GradientPanel{
 
     private final DefaultTableModel model;
     private boolean hasData = false;
+    private static final int MAX_ROWS = 10;
 
 
 public LeaderboardPanel(GameFrame frame) {
-        setPreferredSize(new Dimension(GamePanel.PANEL_W, GamePanel.PANEL_H));
-        setLayout(new BorderLayout(0, 12));
-        setBorder(BorderFactory.createEmptyBorder(24, 20, 24, 20));
+        setPreferredSize(new Dimension(GamePanel.PANEL_W, GamePanel.PANEL_H));  // บอกขนาดหน้า ให้เท่ากับหน้าเกม
+        setLayout(new BorderLayout(0, 12)); // แบ่งหน้าเป็น บน กลาง ล่าง และเว้นช่องห่างแนวตั้ง 12 px
+        setBorder(BorderFactory.createEmptyBorder(50, 20, 24, 20)); // เว้นขอบรอบหน้า
 
-     RoundedPanel titlePill = new RoundedPanel(Theme.YELLOW, 12);
-     titlePill.setLayout(new BorderLayout());   
-     JLabel title = new JLabel("Leaderboard",SwingConstants.CENTER);
+    // ทำป้ายสีเหลืองมุมมน ไว้ใส่ชื่อหัวข้อ
+     RoundedPanel titlePill = new RoundedPanel(Theme.YELLOW, 12); 
+     titlePill.setLayout(new BorderLayout());      // ทำให้ข้อความขยายเต็มป้ายได้
+     JLabel title = new JLabel("Leaderboard",SwingConstants.CENTER);    // ข้อความ Leaderboard จัดให้อยู่ตรงกลาง
      title.setFont(Theme.font(Font.BOLD, 20));
      title.setForeground(Color.WHITE);
-     title.setBorder(BorderFactory.createEmptyBorder(6, 16, 6, 16));   
-     titlePill.add(title);
+     title.setBorder(BorderFactory.createEmptyBorder(6, 16, 6, 16));    // เว้นที่ว่างรอบข้อความ 
+     titlePill.add(title);  // เอาข้อความไปแปะบนป้ายสีเหลือง
 
+    // สร้างปุ่ม Home สีม่วง
+    RoundedButton homeBtn = new RoundedButton("Home", Theme.PURPLE);    
+    homeBtn.setPreferredSize(new Dimension(80, 40));     // ขนาดปุ่ม
+    homeBtn.addActionListener(e -> frame.goHome()); // พอกดปุ่ม ให้บอก GameFrame ว่าพากลับหน้า Home หน่อย
 
-    RoundedButton homeBtn = new RoundedButton("Home", Theme.PURPLE);
-    homeBtn.setPreferredSize(new Dimension(80, 40));
-    homeBtn.addActionListener(e -> frame.goHome());
+    // ทำแถบด้านบน ไว้วางป้ายหัวข้อกับปุ่ม Home คู่กัน
+     JPanel header = new JPanel(new BorderLayout(10, 0)); 
+        header.setOpaque(false);    // ให้แถบโปร่งใส จะได้เห็นพื้นหลังสีฟ้าข้างหลัง
+        header.add(titlePill, BorderLayout.CENTER); //ป้ายหัวข้อไว้ตรงกลาง
+        header.add(homeBtn, BorderLayout.EAST); //ปุ่ม home ไว้ขวา
+        add(header, BorderLayout.NORTH); // เอาไว้ด้านบน
 
-     JPanel header = new JPanel(new BorderLayout(10, 0));
-        header.setOpaque(false);
-        header.add(titlePill, BorderLayout.CENTER);
-        header.add(homeBtn, BorderLayout.EAST);
-        add(header, BorderLayout.NORTH);
-
-         model = new DefaultTableModel(
+         model = new DefaultTableModel(      // เริ่มสร้างกล่องเก็บข้อมูลของตาราง
          new Object[][] {},
-        new String[] {"No.", "Name", "Score"}
+        new String[] {"No.", "Name", "Score"}    // ชื่อหัวคอลัมน์ 3 อัน
         ) {
           @Override
+          //ทำให้ตารางนี้ไว้ดูอย่างเดียว แก้ไม่ได้
          public boolean isCellEditable(int row, int col) {
         return false;
     }
 };
+        // สร้างตาราง โดยเอาข้อมูลจาก model มาโชว์ 
          JTable table = new JTable(model){
             @Override
-            public Component prepareRenderer(javax.swing.table.TableCellRenderer r, int row, int col) {
-                Component c = super.prepareRenderer(r, row, col);
-                Color bg = Color.WHITE;
+            // ถูกเรียกก่อนวาดทุกช่อง เอาไว้ปรับสีพื้นช่อง
+            public Component prepareRenderer(javax.swing.table.TableCellRenderer r, int row, int col) { 
+                Component c = super.prepareRenderer(r, row, col);   // ให้ตารางเตรียมช่องแบบปกติก่อน เราค่อยมาแก้สีทีหลัง
+                Color bg = Color.WHITE; // เริ่มต้นให้พื้นเป็นสีขาวก่อน
                 if (hasData) {
-                    if (row == 0) bg = GOLD;
-                    else if (row == 1) bg = SILVER;
-                    else if (row == 2) bg = BRONZE;
+                    if (row == 0) bg = GOLD;    // แถวแรก (อันดับ 1) เปลี่ยนเป็นสีทอง
+                    else if (row == 1) bg = SILVER; // แถวสอง (อันดับ 2) เป็นสีเงิน
+                    else if (row == 2) bg = BRONZE; // แถวสาม (อันดับ 3) เป็นสีทองแดง
                 }
-                c.setBackground(bg);
-                c.setForeground(Theme.TEXT_DARK);
-                return c;
+                c.setBackground(bg);    // ใส่สีพื้นให้ช่องนี้
+                c.setForeground(Theme.TEXT_DARK);    // ให้ตัวหนังสือเป็นสีเข้ม อ่านง่าย
+                return c;   // ส่งช่องที่แต่งเสร็จแล้วกลับไปให้ตารางวาด
             }
          };
 
-         table.setFont(Theme.font(Font.PLAIN, 13));
-        table.setRowHeight(32);
-        table.setEnabled(false);
-        table.setShowGrid(false);
+         table.setFont(Theme.font(Font.PLAIN, 13));   // ตัวอักษรในตาราง
+        table.setRowHeight(55); // ให้แต่ละแถวสูง 32 px
+        table.setEnabled(false);    // ปิดไม่ให้คลิกเลือกแถวได้ ดูอย่างเดียว
+        table.setShowGrid(false);    // ซ่อนเส้นตารางที่คั่นช่อง
 
          DefaultTableCellRenderer center = new DefaultTableCellRenderer();
-        center.setHorizontalAlignment(SwingConstants.CENTER);
-        table.setDefaultRenderer(Object.class, center);
+        center.setHorizontalAlignment(SwingConstants.CENTER);   // ให้ข้อความทุกช่องอยู่ตรงกลางช่อง
+        table.setDefaultRenderer(Object.class, center); // ทุกช่องอยู่ตรงกลาง
 
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        headerRenderer.setBackground(Theme.NAVY);
-        headerRenderer.setForeground(Color.WHITE);
-        headerRenderer.setFont(Theme.font(Font.BOLD, 13));
-        table.getTableHeader().setDefaultRenderer(headerRenderer);
-        table.getTableHeader().setReorderingAllowed(false);
-        table.getColumnModel().getColumn(0).setPreferredWidth(50);
-        table.getColumnModel().getColumn(1).setPreferredWidth(170);
-        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer(); //หน้าตาของหัวตาราง (แถว No. / Name / Score)
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // ข้อความหัวตารางอยู่กลางช่อง
+        headerRenderer.setBackground(Theme.NAVY); // พื้นหลัง หัวข้อ
+        headerRenderer.setForeground(Color.WHITE); // สีตัวอักษร
+        headerRenderer.setFont(Theme.font(Font.BOLD, 13)); // ตัวหนา ขนาด
+        table.getTableHeader().setDefaultRenderer(headerRenderer); //ให้หัวข้อใน table ทำให้เหนือนกับ headerRenderer
+        table.getTableHeader().setReorderingAllowed(false); // ห้ามลากสลับตำแหน่งคอลัมน์เล่น
+        table.getTableHeader().setPreferredSize(new Dimension(0, 30)); 
+        table.getColumnModel().getColumn(0).setPreferredWidth(10);  // คอลัมน์แรก (No.) กว้าง 50
+        table.getColumnModel().getColumn(1).setPreferredWidth(100); // คอลัมน์สอง (Name) กว้าง 170 เพราะชื่อยาวกว่าเพื่อน
+        table.getColumnModel().getColumn(2).setPreferredWidth(80);  // คอลัมน์สาม (Score) กว้าง 80
 
-        JScrollPane scroll = new JScrollPane(table);
-        scroll.setBorder(BorderFactory.createLineBorder(Theme.PURPLE, 3));
-        scroll.getViewport().setBackground(Color.WHITE);
-        add(scroll, BorderLayout.CENTER);
+        JPanel box = new JPanel(new BorderLayout());                
+        box.setBorder(BorderFactory.createLineBorder(Theme.PURPLE, 3)); 
+        box.add(table.getTableHeader(), BorderLayout.NORTH);        
+        box.add(table, BorderLayout.CENTER);
+
+        JPanel middle = new JPanel(new BorderLayout());             
+        middle.setOpaque(false);    
+        middle.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));                                
+        middle.add(box, BorderLayout.NORTH);                       
+        add(middle, BorderLayout.CENTER);
 }
  public void refresh() {
     model.setRowCount(0);
         List<ScoreEntry> entries = LeaderboardManager.load();
         hasData = !entries.isEmpty();
-        int rank = 1;
-        for (ScoreEntry entry : entries) {
-            model.addRow(new Object[]{String.valueOf(rank++), entry.getName(), String.valueOf(entry.getScore())});
+        int shown = Math.min(entries.size(), MAX_ROWS); 
+        for (int i = 0; i < shown; i++) {
+        ScoreEntry entry = entries.get(i);
+        model.addRow(new Object[]{String.valueOf(i + 1), entry.getName(), String.valueOf(entry.getScore())});
         }
         if (!hasData) {
             model.addRow(new Object[]{"-", "No information available", "-"});
