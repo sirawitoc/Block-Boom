@@ -1,9 +1,8 @@
 package view.components;
+
 import  javax.swing.*;
 import  java.awt.*;
-import javax.swing.JPasswordField;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+
 
 public class PlaceholderPasswordField extends  JPasswordField{
     private String hint;
@@ -11,21 +10,13 @@ public class PlaceholderPasswordField extends  JPasswordField{
     public  PlaceholderPasswordField(String hint){
 
          this.hint = hint;
-        setFont(Theme.font(Font.PLAIN, 14));
-        setForeground(Theme.TEXT_DARK);
+        setFont(Theme.font(Font.PLAIN, 15));
+        setForeground(Theme.FIELD_TEXT);
         setBorder(FieldHint.border());
         setOpaque(false);
-         addFocusListener(new FocusAdapter() {
-        @Override
-        public void focusGained(FocusEvent e) {
-            repaint();
-        }
-        @Override
-        public void focusLost(FocusEvent e) {
-            repaint();
-        }
-    });
-
+        setPreferredSize(new Dimension(200, 50));
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+         
         
     }
 
