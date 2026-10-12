@@ -10,10 +10,9 @@ public class PlaceholderPasswordField extends  JPasswordField{
     public  PlaceholderPasswordField(String hint){
 
          this.hint = hint;
-        setFont(Theme.font(Font.PLAIN, 15));
+        setFont(Theme.font(Font.BOLD, 15));
         setForeground(Theme.FIELD_TEXT);
         setBorder(FieldHint.border());
-        setOpaque(false);
         setPreferredSize(new Dimension(200, 50));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
          
