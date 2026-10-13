@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
+    
     private static final int CELL = 40;
     private static final int BOARD_PX = CELL * Board.SIZE;
     public static final int PANEL_W = 393;
@@ -56,7 +57,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         LeaderboardManager.addScore(playerName, engine.getScore());
         bestScore = Math.max(bestScore, engine.getScore());
         repaint();
-        // open the popup after the current mouse event has finished
+
         SwingUtilities.invokeLater(() -> new GameOverDialog(frame, this, playerName, engine.getScore(),
                 () -> startNewGame(playerName)).setVisible(true));
     }
@@ -79,7 +80,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     private void drawHeader(Graphics2D g) {
         drawBadge(g, MARGIN, 24, 84, 44, "Score", String.valueOf(engine.getScore()), Theme.PURPLE, Color.WHITE);
-        drawBadge(g, MARGIN + 94, 24, 110, 44, "Best Score", String.valueOf(bestScore), Theme.YELLOW, Theme.TEXT_DARK);
+        drawBadge(g, MARGIN + 94, 24, 110, 44, "Best Score", String.valueOf(bestScore), Theme.YELLOW, Color.WHITE);
         drawSettingsButton(g);
     }
 
@@ -97,9 +98,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
     private void drawSettingsButton(Graphics2D g) {
         g.setColor(Theme.PURPLE);
-        g.fillRoundRect(SETTINGS_BUTTON.x, SETTINGS_BUTTON.y, SETTINGS_BUTTON.width, SETTINGS_BUTTON.height, 12, 12);
+        g.fillRoundRect(SETTINGS_BUTTON.x, SETTINGS_BUTTON.y, SETTINGS_BUTTON.width, SETTINGS_BUTTON.height, 20, 20);
         g.setColor(Color.WHITE);
-        g.setFont(new Font("SansSerif", Font.PLAIN, 22));
+        g.setFont(new Font("SansSerif", Font.PLAIN, 30));
         FontMetrics fm = g.getFontMetrics();
         String gear = "\u2699";
         int tx = SETTINGS_BUTTON.x + (SETTINGS_BUTTON.width - fm.stringWidth(gear)) / 2;
@@ -126,16 +127,21 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             }
         }
         if (draggingSlot != -1) {
-            Piece p = engine.getPiece(draggingSlot);
-            Color hl = dragValid ? new Color(46, 204, 113, 140) : new Color(231, 76, 60, 140);
-            for (int[] cell : p.getCells()) {
-                int r = dragRow + cell[0];
-                int c = dragCol + cell[1];
-                if (r >= 0 && r < Board.SIZE && c >= 0 && c < Board.SIZE) {
+    Piece p = engine.getPiece(draggingSlot);
+    Color hl = dragValid ? new Color(46, 204, 113, 140) : new Color(231, 76, 60, 140);
+    int[][] shape = p.getCells();
+    for (int pr = 0; pr < shape.length; pr++) {
+        for (int pc = 0; pc < shape[pr].length; pc++) {
+            if (shape[pr][pc] == 1) {
+                int br = dragRow + pr;
+                int bc = dragCol + pc;
+                if (br >= 0 && br < Board.SIZE && bc >= 0 && bc < Board.SIZE) {
                     g.setColor(hl);
-                    g.fillRect(BOARD_X + c * CELL, BOARD_Y + r * CELL, CELL, CELL);
+                    g.fillRect(BOARD_X + bc * CELL, BOARD_Y + br * CELL, CELL, CELL);
                 }
             }
+        }
+    }
         }
     }
 
@@ -169,10 +175,15 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         int h = p.getHeight() * previewCell;
         int startX = areaX + (areaW - w) / 2;
         int startY = areaY + (areaH - h) / 2;
-        for (int[] cell : p.getCells()) {
-            drawBlock(g, startX + cell[1] * previewCell, startY + cell[0] * previewCell, previewCell, p.getColor());
+        int[][] shape = p.getCells();
+for (int r = 0; r < shape.length; r++) {
+    for (int c = 0; c < shape[r].length; c++) {
+        if (shape[r][c] == 1) {
+            drawBlock(g, startX + c * previewCell, startY + r * previewCell, previewCell, p.getColor());
         }
     }
+}
+}
 
     private void drawDraggedPiece(Graphics2D g) {
         Piece p = engine.getPiece(draggingSlot);
@@ -180,13 +191,15 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
         int h = p.getHeight() * CELL;
         int startX = mouseX - w / 2;
         int startY = mouseY - h / 2;
-        Composite old = g.getComposite();
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.85f));
-        for (int[] cell : p.getCells()) {
-            drawBlock(g, startX + cell[1] * CELL, startY + cell[0] * CELL, CELL, p.getColor());
+        int[][] shape = p.getCells();
+for (int r = 0; r < shape.length; r++) {
+    for (int c = 0; c < shape[r].length; c++) {
+        if (shape[r][c] == 1) {
+            drawBlock(g, startX + c * CELL, startY + r * CELL, CELL, p.getColor());
         }
-        g.setComposite(old);
     }
+}
+}
 
     private void updateDragTarget() {
         Piece p = engine.getPiece(draggingSlot);
@@ -242,24 +255,24 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     @Override
     public void mouseMoved(MouseEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
+       
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
+       
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
+        
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+       
     }
 }
