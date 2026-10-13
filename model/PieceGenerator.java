@@ -5,13 +5,6 @@ import  java.util.List;
 import  java.util.ArrayList;
 import  java.util.Collections;
 
-/**
- * PieceGenerator.java
- * classนี้เกี่ยวกับการสร้างรูปร่างจริงของตัวบล็อกร่วมไปถึงการสุ่มบล็อก
- * เเละสร้างถุงเก็บบล็อกต่างๆเพื่อการนำไปสุ่ม
- */
-
-
 public  class PieceGenerator {
 
 
@@ -38,8 +31,14 @@ public  class PieceGenerator {
 
     
     private static  final Color[] COLORS={     //สีของบล็อก
-        Color.RED, Color.BLUE, Color.GREEN,
-        Color.ORANGE, Color.MAGENTA, Color.CYAN
+
+        new Color(231, 76, 60),    // แดง
+         new Color(52, 152, 219),   // ฟ้า
+        new Color(46, 204, 113),   // เขียวเข้ม
+        new Color(241, 196, 15),   // เหลือง
+        new Color(155, 89, 182),   // ม่วง
+        new Color(230, 126, 34),   // ส้ม
+        new Color(26, 188, 156),   // เขียวอ่อน
 
     };
     private  Random random;     //เครื่องสุ่มของjava
