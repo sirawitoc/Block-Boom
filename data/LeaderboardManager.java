@@ -7,10 +7,10 @@ import java.util.*;
 
 public class LeaderboardManager {
 
-    private  final String FILE_NAME = "leaderboard.csv";
-    private  final int MAX_ENTRIES = 10; //จำนวนอันดับสูงสุดที่เก็บ
+    private static final String FILE_NAME = "leaderboard.csv";
+    private static  final int MAX_ENTRIES = 10; //จำนวนอันดับสูงสุดที่เก็บ
 
-    public  List<ScoreEntry> load() { //โหลดคะแนนจากไฟล์
+    public  static  List<ScoreEntry> load() { //โหลดคะแนนจากไฟล์
         Map<String, ScoreEntry> best = new LinkedHashMap<>();
         File f = new File(FILE_NAME);
         if (f.exists()) {
@@ -39,7 +39,7 @@ public class LeaderboardManager {
         return entries;
     }
 
-    public  void addScore(String name, int score) { //เพิ่ม,อัปเดตคะแนน
+    public static void addScore(String name, int score) { //เพิ่ม,อัปเดตคะแนน
         List<ScoreEntry> entries = load();
         boolean found = false;
         for (int i = 0; i < entries.size(); i++) {
@@ -60,7 +60,7 @@ public class LeaderboardManager {
         save(entries);
     }
 
-    public  int getTopScore() { //คะแนนสูงสุด
+    public static int getTopScore() { //คะแนนสูงสุด
         List<ScoreEntry> entries = load();
         if (entries.isEmpty()) {
             return 0;
@@ -69,7 +69,7 @@ public class LeaderboardManager {
         }
     }
 
-    public  void save(List<ScoreEntry> entries) { //บันทึกลงไฟล์
+    private static void save(List<ScoreEntry> entries) { //บันทึกลงไฟล์
         try (BufferedWriter w = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(FILE_NAME), StandardCharsets.UTF_8))) {
             for (ScoreEntry e : entries) {
