@@ -79,8 +79,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     private void drawHeader(Graphics2D g) {
-        drawBadge(g, MARGIN, 24, 84, 44, "Score", String.valueOf(engine.getScore()), Theme.PURPLE, Color.WHITE);
-        drawBadge(g, MARGIN + 94, 24, 110, 44, "Best Score", String.valueOf(bestScore), Theme.YELLOW, Color.WHITE);
+        drawBadge(g, MARGIN, HEADER_Y, 120, 50, "Score", String.valueOf(engine.getScore()), Theme.PURPLE, Color.WHITE);
+        drawBadge(g, MARGIN + 140, HEADER_Y, 110, 50, "Best Score", String.valueOf(bestScore), Theme.YELLOW, Color.WHITE);
         drawSettingsButton(g);
     }
 
