@@ -9,7 +9,7 @@ public class HomePanel extends GradientPanel {
     private PlaceholderField nameField = new PlaceholderField("Enter your name");
     private JLabel errorLabel = new JLabel(" ");
     private GameFrame frame;
-
+    //สร้างเมนู
     public HomePanel(GameFrame frame) {
         this.frame = frame;
         setPreferredSize(new Dimension(GamePanel.PANEL_W, GamePanel.PANEL_H));
