@@ -31,7 +31,7 @@ public class UserManager { //ค้นหาผู้ใช้จากชื่
         }
     }
 
-    private  static  List<User> loadAll() { //username กับ email กลับมาสร้างเป็น User ถ้าไม่มีไฟล์ก็คืนลิสต์ว่าง
+    private  static  List<User> loadAll() { //username กลับมาสร้างเป็น User ถ้าไม่มีไฟล์ก็คืนลิสต์ว่าง
         List<User> users = new ArrayList<>();
         File f = new File(FILE_NAME);
         if (!f.exists())
