@@ -2,7 +2,7 @@
 
 | รหัสนิสิต | ชื่อ | ส่วนที่รับผิดชอบ |
 |---|---|---|
-| 6821601054 | นายธนกฤต อรชร | (`data/`): `ScoreEntry`, `LeaderboardManager` |
-| 6821601020 | นายณัฐเวช คุณรักษ์ | (`model/`): `Board`, `Piece`, `PieceGenerator` |
-| 6821601267 | นายพลาธิป โรจน์บุญถึง | (`view/`): `GameFrame`, `HomePanel`, `LeaderboardPanel`, `SettingsDialog`, Figma |
-| 6821601534 | นายสิรวิชญ์ โอชม | (`view/`): `GamePanel`, Class Diagram   |
+| 6821601054 | นายธนกฤต อรชร | `data/`, `view/` , , Class Diagram |
+| 6821601020 | นายณัฐเวช คุณรักษ์ | `model/` , `view/components`  |
+| 6821601267 | นายพลาธิป โรจน์บุญถึง | `view/components` , Figma  |
+| 6821601534 | นายสิรวิชญ์ โอชม | `view/` , Class Diagram , Figma  |
