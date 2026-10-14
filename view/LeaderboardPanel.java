@@ -40,7 +40,7 @@ public LeaderboardPanel(GameFrame frame) {
 
     // สร้างปุ่ม Home สีม่วง
     RoundedButton homeBtn = new RoundedButton("Home", Theme.PURPLE);    
-    homeBtn.setPreferredSize(new Dimension(80, 40));     // ขนาดปุ่ม
+    homeBtn.setPreferredSize(new Dimension(100, 40));     // ขนาดปุ่ม
     homeBtn.addActionListener(e -> frame.goHome()); // พอกดปุ่ม ให้บอก GameFrame ว่าพากลับหน้า Home หน่อย
 
     // ทำแถบด้านบน ไว้วางป้ายหัวข้อกับปุ่ม Home คู่กัน
