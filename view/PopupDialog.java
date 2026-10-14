@@ -34,7 +34,7 @@ abstract class PopupDialog  extends JDialog{
         if (closable) {
             // ปิดเองได้ -> ใส่ปุ่ม X สีแดงฝั่งขวา กดแล้วปิด
             RoundedButton close = new RoundedButton("X", Theme.RED);
-            close.setPreferredSize(new Dimension(30, 26));
+            close.setPreferredSize(new Dimension(45, 45));
             close.addActionListener(e -> dispose());
             header.add(close, BorderLayout.EAST);
         } else {
